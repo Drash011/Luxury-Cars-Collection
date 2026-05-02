@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": "off",
+    "button-type": "off",
+    "css-prefix-order": "off",
+    "detect-css-reflows/layout": "off",
+    "detect-css-reflows/paint": "off",
+    "detect-css-reflows/composite": "off",
+    "meta-viewport": "off",
+    "axe/forms": "off",
+    "axe/text-alternatives": "off",
+    "axe/name-role-value": "off",
+    "axe/language": "off",
+    "meta-charset-utf-8": "off",
+    "no-inline-styles": "off"
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Cars Collection</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Luxury Cars Collection</h1>
+            <p>Find Your Dream Premium Car</p>
+
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fa-solid fa-moon"></i> Dark
+            </button>
+        </div>
+
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="Search cars...">
+
+            <select id="brandFilter">
+                <option value="all">All Brands</option>
+                <option value="bmw">BMW</option>
+                <option value="audi">Audi</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="lamborghini">Lamborghini</option>
+                <option value="rr">Rolls Royce</option>
+            </select>
+        </div>
+
+        <div class="cars-container" id="carsContainer"></div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

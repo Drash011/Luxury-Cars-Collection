@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car Details</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: var(--card-glass);
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+        }
+
+        .gallery {
+            width: 100%;
+            height: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .thumbs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .thumbs img {
+            width: 90px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .thumbs img.active {
+            opacity: 1;
+            border: 2px solid #2563eb;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .card {
+            padding: 22px;
+            border-radius: 16px;
+            background: var(--card-glass);
+            border: 1px solid var(--glass-border);
+        }
+
+        .price {
+            color: #9ca3af;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin: 15px 0 8px;
+        }
+
+        .desc {
+            color: var(--subtext);
+            line-height: 1.6;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .review-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .review-box input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .fullscreen {
+            position: fixed;
+            inset: 0;
+            background: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .fullscreen.active {
+            display: flex;
+        }
+
+        @media(max-width:768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="top-bar">
+            <button class="btn" onclick="history.back()">← Back</button>
+            <button id="themeToggle" class="btn">🌙</button>
+        </div>
+
+        <div class="gallery" id="gallery">
+            <div id="mainImage" class="main-image"></div>
+
+            <button class="arrow prev" onclick="prev()">❮</button>
+            <button class="arrow next" onclick="next()">❯</button>
+        </div>
+
+        <div id="thumbs" class="thumbs"></div>
+
+        <div id="fullscreen" class="fullscreen" onclick="closeFull()">
+            <img id="fullImg">
+        </div>
+
+        <div class="grid">
+
+            <div>
+
+                <h1 id="title"></h1>
+                <p id="price" class="price"></p>
+
+                <div class="actions">
+                    <button class="btn">❤️ Wishlist</button>
+                    <button class="btn btn-primary" onclick="buyNow()">Buy Now</button>
+                </div>
+
+                <div class="card">
+
+                    <div class="section-title">Overview</div>
+                    <p class="desc">
+                        The Audi R8 is a high-performance luxury sports car engineered for speed, precision, and
+                        comfort.
+                        With a powerful engine and aggressive design, it delivers an unmatched driving experience on
+                        both road and track.
+                    </p>
+
+                    <div class="section-title">Performance</div>
+                    <p class="desc">
+                        Powered by a naturally aspirated V10 engine, the R8 accelerates from 0–100 km/h in just 3.2
+                        seconds.
+                        Its quattro all-wheel-drive system ensures maximum grip and stability.
+                    </p>
+
+                    <div class="section-title">Design & Interior</div>
+                    <p class="desc">
+                        The exterior features sharp aerodynamic lines, while the interior offers premium leather seats,
+                        digital cockpit, and advanced infotainment system for a luxurious feel.
+                    </p>
+
+                    <div class="section-title">Key Features</div>
+                    <ul>
+                        <li>🔥 5.2L V10 Engine</li>
+                        <li>⚡ 0-100 km/h in 3.2 sec</li>
+                        <li>🚀 Top Speed 320 km/h</li>
+                        <li>🎵 Premium Sound System</li>
+                        <li>🛡 Advanced Safety Features</li>
+                    </ul>
+
+                </div>
+
+                <div class="card">
+                    <h3>Reviews</h3>
+
+                    <div class="review-box">
+                        <input placeholder="Write your experience...">
+                        <button class="btn btn-primary">Post</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+                <h3>Specifications</h3>
+
+                <div class="spec-row"><span>Engine</span><span>5.2L V10</span></div>
+                <div class="spec-row"><span>Power</span><span>562 HP</span></div>
+                <div class="spec-row"><span>Top Speed</span><span>320 km/h</span></div>
+                <div class="spec-row"><span>Acceleration</span><span>3.2 sec</span></div>
+                <div class="spec-row"><span>Transmission</span><span>Automatic</span></div>
+                <div class="spec-row"><span>Fuel Type</span><span>Petrol</span></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.body.classList.add("loaded");
+
+        const car = JSON.parse(localStorage.getItem("selectedCar"));
+
+        let images = [];
+
+        if (car.name === "BMW M4") {
+            images = [
+                car.image,
+                "images/BMW-M4-1.jpg",
+                "images/BMW-M4-2.jpg",
+                "images/BMW-M4-3.jpg",
+                "images/BMW-M4-4.jpg"
+            ];
+        }
+        else if (car.name === "Audi R8") {
+            images = [
+                car.image,
+                "images/Audi-R8-1.jpg",
+                "images/Audi-R8-2.jpg",
+                "images/Audi-R8-3.jpg",
+                "images/Audi-R8-4.jpg"
+            ];
+        }
+        else if (car.name === "Mercedes AMG GT") {
+            images = [
+                car.image,
+                "images/Mercedes-AMG-GT-1.jpg",
+                "images/Mercedes-AMG-GT-2.jpg",
+                "images/Mercedes-AMG-GT-3.jpg",
+                "images/Mercedes-AMG-GT-4.jpg"
+            ];
+        }
+        else if (car.name === "Mercedes AMG GT") {
+            images = [
+                car.image,
+                "images/Mercedes-AMG-GT-5.jpg",
+                "images/Mercedes-AMG-GT2-6.jpg",
+                "images/Mercedes-AMG-GT-7.jpg",
+                "images/Mercedes-AMG-GT2-8.jpg"
+            ];
+        }
+        else if (car.name === "Lamborghini Huracan") {
+            images = [
+                car.image,
+                "images/Lamborghini-Huracan-1.jpg",
+                "images/Lamborghini-Huracan-2.jpg",
+                "images/Lamborghini-Huracan-3.jpg",
+                "images/Lamborghini-Huracan-4.jpg"
+            ];
+        }
+        else if (car.name === "BMW i8") {
+            images = [
+                car.image,
+                "images/BMW-i8-1.jpg",
+                "images/BMW-i8-2.jpg",
+                "images/BMW-i8-3.jpg",
+                "images/BMW-i8-4.jpg"
+            ];
+        }
+        else if (car.name === "Rolls Royce Ghost") {
+            images = [
+                car.image,
+                "images/Rolls-Royce-Ghost-1.jpg",
+                "images/Rolls-Royce-Ghost-2.jpg",
+                "images/Rolls-Royce-Ghost-3.jpg",
+                "images/Rolls-Royce-Ghost-4.jpg"
+            ];
+        }
+        else if (car.name === "Rolls Royce Phantom") {
+            images = [
+                car.image,
+                "images/Rolls-Royce-Phantom-1.jpg",
+                "images/Rolls-Royce-Phantom-2.jpg",
+                "images/Rolls-Royce-Phantom-3.jpg",
+                "images/Rolls-Royce-Phantom-4.jpg"
+            ];
+        }
+
+
+        if (images.length === 0) {
+            images = [car.image];
+        }
+
+        let current = 0;
+
+        function set(i) {
+            current = i;
+            mainImage.style.backgroundImage = `url('${images[i]}')`;
+
+            document.querySelectorAll(".thumbs img")
+                .forEach((t, idx) => t.classList.toggle("active", idx === i));
+        }
+
+        function next() {
+            set((current + 1) % images.length);
+        }
+
+        function prev() {
+            set((current - 1 + images.length) % images.length);
+        }
+
+        setInterval(next, 4000);
+
+        thumbs.innerHTML = "";
+        images.forEach((img, i) => {
+            thumbs.innerHTML += `<img src="${img}" onclick="set(${i})">`;
+        });
+
+        set(0);
+
+        gallery.onclick = () => {
+            fullImg.src = images[current];
+            fullscreen.classList.add("active");
+        };
+
+        function closeFull() {
+            fullscreen.classList.remove("active");
+        }
+
+        title.innerText = car.name;
+        price.innerText = car.price;
+
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+        }
+
+        themeToggle.onclick = () => {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+                "theme",
+                document.body.classList.contains("dark") ? "dark" : "light"
+            );
+        };
+
+        function buyNow() {
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                localStorage.setItem("checkoutCar", JSON.stringify(car));
+                window.location.href = "checkout.html";
+            }, 300);
+        }
+    </script>
+
+</body>
+
+</html>

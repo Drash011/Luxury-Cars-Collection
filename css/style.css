@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Poppins", sans-serif;
+}
+
+:root {
+    --bg: #f4f6f9;
+    --text: #111;
+    --subtext: #666;
+
+    --card-glass: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.08);
+
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+body.dark {
+    --bg: #0f172a;
+    --text: #fff;
+    --subtext: #9ca3af;
+
+    --card-glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.12);
+
+    --shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    padding: 30px;
+    transition: 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.header h1 {
+    font-size: 2.3rem;
+    font-weight: 600;
+}
+
+.header p {
+    color: var(--subtext);
+}
+
+.theme-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: var(--text);
+    border: 1px solid var(--glass-border);
+    background: var(--card-glass);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.filter-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.filter-section input,
+.filter-section select {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: var(--card-glass);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+}
+
+.cars-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    perspective: 1000px;
+}
+
+.car-card {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: var(--card-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+    box-shadow: var(--shadow);
+}
+
+.car-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.car-card:hover img {
+    transform: scale(1.08);
+}
+
+.car-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+    transform: skewX(-20deg);
+    transition: none;
+}
+
+.car-card:hover::after {
+    animation: shineMove 0.8s ease forwards;
+}
+
+@keyframes shineMove {
+    0% {
+        left: -120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+.car-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateZ(30px);
+}
+
+.car-content h3 {
+    font-size: 1.15rem;
+}
+
+.brand {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+body:not(.dark) .brand {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark .brand {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+}
+
+@media(max-width:768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+}
